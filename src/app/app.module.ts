@@ -52,7 +52,7 @@ import { HeroesAComponent } from './components/heroes-a/heroes-a.component'
     {path: 'hero/:id', component: HeroComponent},
     {path: 'results/:termino', component: BuscadorComponent},
     {path: 'pipes', component: PipesComponent},
-    {path: 'api', component:HeroesAComponent},
+    {path: 'admin', component:HeroesAComponent},
     {path: '**', pathMatch: 'full', component: Error404Component},
 
      

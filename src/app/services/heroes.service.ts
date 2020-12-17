@@ -10,22 +10,22 @@ export class HeroesService {
   constructor(public http: HttpClient) { }
 
   //metodos
-  getheroes(){
+  getParaHeroes(){
     return this.http.get('http://localhost:3000/heroesAct').toPromise();
   }
 
   //POST
-  postheroes(mod:Heroes){
+  postParaHeroes(mod:Heroes){
     return this.http.post('http://localhost:3000/heroe', mod).toPromise();
   }
 
   //PUT
-  putheroes(mod:Heroes,id:string){
+  putParaHeroes(mod:Heroes,id:string){
     return this.http.put(`http://localhost:3000/heroe/${id}`, mod).toPromise();
   }
 
   //DELETE
-  deleteheroes(id:string){
+  deleteParaHeroes(id:string){
     return this.http.delete(`http://localhost:3000/hero/${id}`).toPromise();
   }
 

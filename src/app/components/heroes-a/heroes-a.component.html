@@ -1,27 +1,26 @@
-<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#agregar">Agregar</button>
 
-<table class="table table-info">
-  <thead>
+<table class="table">
+  <thead class="table-dark">
     <tr>
       <th>Nombre</th>
-      <th>Bio</th>
-      <th>Imagen</th>
-      <th>Aparicion</th>
+      <th>Biografía</th>
+      <th>Imágen</th>
+      <th>Fecha Ap.</th>
       <th>Casa</th>
       <th>Config.</th>
     </tr>
   </thead>
-  <tbody *ngFor = 'let h of heros'>
+  <tbody *ngFor = 'let her of heros'>
     <tr>
-      <td>{{h.nombre}}</td>
-      <td>{{h.bio}}</td>
-      <td>{{h.img}}</td>
-      <td>{{h.aparicion}}</td>
-      <td>{{h.casa}}</td>
+      <td>{{her.nombre}}</td>
+      <td>{{her.bio}}</td>
+      <td>{{her.img}}</td>
+      <td>{{her.aparicion}}</td>
+      <td>{{her.casa}}</td>
       <td>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#ed"  (click)="obtenerid(h._id)">Editar</button>
-          <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#eliminar" (click)="obtenerid(h._id)">Eliminar</button>
+          <button class="btn btn-dark " data-toggle="modal" data-target="#ed" data-toggle2="tooltip" data-placement="top" title="Editar Heroe"  (click)="obtenerID(her._id)"><i class="fas fa-pen-square"></i></button>
+          <button class="btn btn-danger " data-toggle="modal" data-target="#eliminar" data-toggle2="tooltip" data-placement="top" title="Eliminar Heroe" (click)="obtenerID(her._id)"><i class="fas fa-trash-alt"></i></button>
         </div>
       </td>
     </tr>
@@ -31,137 +30,181 @@
 
 
 
-<!-- Modal -->
+<!-- Modal para agregar Heroe -->
 <div class="modal fade" id="agregar" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="pheros(form)" #form = "ngForm">
-          <div class="d-flex">
-            <label>Nombre</label>
-            <input name="nombre" [(ngModel)]="hmodel.nombre" #nombre type="text">
-          </div>
-          <div class="d-flex">
-            <label>Bio</label>
-            <input name="bio" [(ngModel)]="hmodel.bio" #bio type="text">
-          </div>
-          <div class="d-flex">
-            <label>Imagen</label>
-            <input name="img" [(ngModel)]="hmodel.img" #img type="file">
-          </div>
-          <div class="d-flex">
-            <label>Aparicion</label>
-            <input name="aparicion" [(ngModel)]="hmodel.aparicion" #aparicion type="text">
-          </div>
-          <div class="d-flex">
-            <label>Casa</label>
-            <input name="casa" [(ngModel)]="hmodel.casa" #casa type="text">
-          </div>
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-outline-info" onclick="document.location.reload();">Refresh</button>
-
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<div class="modal fade" id="ed" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light" id="exampleModalLabel">Agregar un nuevo Heroe</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #form = "ngForm">
-          <div class="d-flex">
-            <label>Nombre</label>
-            <input name="nombre" [(ngModel)]="hmodel.nombre" #nombre type="text">
+        <form class="" (ngSubmit)="postHeros(form)" #form = "ngForm">
+          <div class="form-group">
+            <label class="font-weight-bold">Nombre</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              name="nombre" [(ngModel)]="hmodel.nombre" #nombre="ngModel"
+            />
+            <small id="" class="form-text text-muted"
+              >Ingresa el nombre de tu heroe.</small
+            >
           </div>
-          <div class="d-flex">
-            <label>Bio</label>
-            <input name="bio" [(ngModel)]="hmodel.bio" #bio type="text">
+          <div class="form-group">
+            <label class="font-weight-bold">Biografía</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              name="bio" [(ngModel)]="hmodel.bio" #bio="ngModel"
+              placeholder="Descripción|Historia"
+            >
+            <small id="" class="form-text text-muted">Habla sobre tu heroe.</small>
           </div>
-          <div class="d-flex">
-            <label>Imagen</label>
-            <input name="img" [(ngModel)]="hmodel.img" #img type="file">
+          <div class="form-group">
+            <label class="font-weight-bold">Imágen</label>
+            <input
+              type="file"
+              class="form-control form-control-sm"
+              name="img" [(ngModel)]="hmodel.img" #img="ngModel"
+            />
+            <small id="" class="form-text text-muted"
+              >Representa a tu heroe con una imagen</small
+            >
           </div>
-          <div class="d-flex">
-            <label>Aparicion</label>
-            <input name="aparicion" [(ngModel)]="hmodel.aparicion" #aparicion type="text">
+          <div class="form-group">
+            <label class="font-weight-bold">Aparición Comics</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              name="Ap" [(ngModel)]="hmodel.aparicion" #Ap="ngModel"
+              placeholder="Año-Mes-Día"
+            />
+            <small id="" class="form-text text-muted"
+              >¿Primera aparición de tu heroe?</small
+            >
           </div>
-          <div class="d-flex">
-            <label>Casa</label>
-            <input name="casa" [(ngModel)]="hmodel.casa" #casa type="text">
+          <div class="form-group">
+            <label class="font-weight-bold">Casa</label>
+            <select class="form-control" name="csa" [(ngModel)]="hmodel.casa" #csa="ngModel">
+              <option>DC</option>
+              <option>Marvel</option>
+            </select>
+            <small id="" class="form-text text-muted">
+              Ingresa una casa para tu heroe.
+            </small>
+          </div>
+
+          <button type="submit" class="btn btn-dark btn-block">Enviar</button>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-outline-info" onclick="document.location.reload();">Refresh</button>
+      </div> -->
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal para actualizar Heroe -->
+<div class="modal fade" id="ed" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light" id="exampleModalLabel">Actualizar Heroe</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="m-4" #form = "ngForm">
+          <div class="form-group">
+            <label class="font-weight-bold">Nombre</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              name="nombre" [(ngModel)]="hmodel.nombre" #nombre="ngModel"
+            />
+            <small id="" class="form-text text-muted"
+              >Puedes ingresar nuevo nombre.</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold">Biografía</label>
+            <textarea
+              type="text"
+              class="form-control form-control-sm"
+              name="bio" [(ngModel)]="hmodel.bio" #bio="ngModel"
+            >
+            </textarea>
+            <small id="" class="form-text text-muted">Habla sobre tu heroe.</small>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold">Imágen</label>
+            <input
+              type="file"
+              class="form-control form-control-sm"
+              name="img" [(ngModel)]="hmodel.img" #img="ngModel"
+            />
+            <small id="" class="form-text text-muted"
+              >Puedes seleccionar una nueva imagen</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold">Aparición Comics</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              name="Ap" [(ngModel)]="hmodel.aparicion" #Ap="ngModel"
+            />
+            <small id="" class="form-text text-muted"
+              >Puedes cambiar la fecha de aparición</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold">Casa</label>
+            <select class="form-control" name="csa" [(ngModel)]="hmodel.casa" #csa="ngModel">
+              <option>DC</option>
+              <option>Marvel</option>
+            </select>
+            <small id="" class="form-text text-muted">
+              Puedes cambiar la casa de tu heroe.
+            </small>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="putHeros()">Guardar Cambios</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="edrew" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="ptheros()">Guardar Cambios</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-outline-info" onclick="document.location.reload();">Refresh</button>
-
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Modal -->
+<!-- Modal para eliminar Heore -->
 <div class="modal fade" id="eliminar" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light" id="exampleModalLabel">¿Seguro que quieres Eliminar?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        <p>Se eliminara el usuario</p>
+        <p>Al seleccionar Confirmar, eliminarás el heroe seleccionado</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="delheros()">Eliminar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-outline-info" onclick="document.location.reload();">Refresh</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteHeros()">Confirmar</button>
       </div>
     </div>
 
   </div>
 </div>
 
+<button class="btn btn-dark btn-block m-3" data-toggle="modal" data-target="#agregar"><i class="fas fa-plus-square"></i> Agregar</button>

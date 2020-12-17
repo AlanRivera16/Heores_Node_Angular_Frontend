@@ -1,8 +1,18 @@
 import { error } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Heroes } from '../../models/heroes'
 import { HeroesService } from '../../services/heroes.service'
+import swal from 'sweetalert2'
+
+const Toast = swal.mixin({
+  toast: true,
+  position: 'center',
+  showConfirmButton: false,
+  timer: 4000,
+  backdrop: `rgba(26, 29, 32, 0.46)`
+})
+
 
 @Component({
   selector: 'app-heroes-a',
@@ -14,43 +24,61 @@ export class HeroesAComponent implements OnInit {
   constructor(private heroS:HeroesService ) { }
 
   ngOnInit(): void {
-    this.gheros();
+    this.getHeros();
   }
   heros: any[]=[];
   hmodel: Heroes=new Heroes;
   guardarid: any;
 
-  gheros(){
-    this.heroS.getheroes().then((data:any) => {
+  @Output() salida = new EventEmitter;
+
+  getHeros(){
+    this.heroS.getParaHeroes().then((data:any) => {
       this.heros=data;
       console.log(this.heros);
     });
   };
 
-  pheros(form: NgForm){
-    this.heroS.postheroes(this.hmodel).then((data:any) => {
+  postHeros(form: NgForm){
+    this.heroS.postParaHeroes(this.hmodel).then((data:any) => {
       this.hmodel=data;
+      Toast.fire(data.msg, '', 'success')
+      this.salida.emit();
       console.log(this.hmodel);
     }).catch((error) => {
+      Toast.fire(error.error.msg, '', 'error');
+        this.salida.emit();
       console.log("Algo salio mal en el post",error);
     })
   }
 
-  ptheros(){
-    this.heroS.putheroes(this.hmodel,this.guardarid).then((data:any) => {
+  putHeros(){
+    this.heroS.putParaHeroes(this.hmodel,this.guardarid).then((data:any) => {
       this.hmodel = data;
+      Toast.fire(data.msg, '', 'success')
+      this.salida.emit();
       console.log(this.hmodel);
+    }).catch((error) => {
+      Toast.fire(error.error.msg, '', 'error');
+        this.salida.emit();
+      console.log("Algo salio mal con el put",error);
     })
   }
 
-  delheros(){
-    this.heroS.deleteheroes(this.guardarid).then((data: any) => {
+  deleteHeros(){
+    this.heroS.deleteParaHeroes(this.guardarid).then((data: any) => {
       this.hmodel = data;
+      Toast.fire(data.msg, '', 'success')
+      this.salida.emit();
       console.log(this.hmodel);
+    }).catch((error) => {
+      Toast.fire(error.error.msg, '', 'error');
+        this.salida.emit();
+      console.log("Algo salio mal con el delete",error);
     })
   }
 
-  obtenerid(id:string){
+  obtenerID(id:string){
     this.guardarid = id;
     console.log(this.guardarid);
   }
