@@ -78,10 +78,12 @@ public searchHeros(termino){
   termino = termino.toLowerCase();
   //Usar un ciclo para comparar el termino de busqueda contra la propiedad nombre de cada heroe
 
-  for ( const hero of this.Heros){
+  for ( let i = 0; i < this.Heros.length; i++){
+    let hero = this.Heros[i];
     const nombre = hero.nombre.toLowerCase();
     if (nombre.indexOf(termino) >= 0){
-      resultados.push(hero)
+      hero.index = i;
+      resultados.push(hero);
     }
   }
   return resultados;

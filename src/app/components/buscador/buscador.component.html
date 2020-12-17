@@ -11,16 +11,10 @@
     <!--si    no-->
     <!--true Else(False) -->
 
-    <div *ngIf=" Resultados.length !== 0" class="card-columns">
-        <div class="card fadeIn animated" *ngFor="let Hero of Resultados; let i = index">
-            <img src="{{Hero.img}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{Hero.nombre}}</h5>
-                <p class="card-text">{{Hero.bio.substring(0,30)}}</p>
-                <small>{{Hero.aparicion}}</small>
-            </div>
-            <!-- <button (click)= "Navegar(i)" class="btn btn-outline-primary btn-block">Ver más...</button> -->
-        </div>
+    <div *ngIf=" Resultados.length  > 0" class="card-columns">
+        <!-- La declaracion let i = index contabiliza la emision del *ngFor -->
+        <app-hero-card [PadreHero]="Hero" [Index]="Hero.index" *ngFor="let Hero of Resultados; let i = index"></app-hero-card>
+        
     </div>
     <!-- </div> -->
 </div>

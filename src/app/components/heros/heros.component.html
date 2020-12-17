@@ -1,25 +1,18 @@
+<!-- Heros component es padre de HeroCard component -->
 <div class="fast fadeIn">
-<h2 class="h2 display-4 pb-4">
-  Heroes <small> DC y Marvel</small>
-  </h2>
-  
-  
-  <div class="card-columns">
-      <div class="card fadeIn animated border" [ngClass]="{'border-primary': Hero.casa == 'DC','border-danger': Hero.casa == 'Marvel' }" *ngFor= "let Hero of ArrayHeros; let i = index">
-        <img src="{{Hero.img}}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{Hero.nombre}}</h5>
-          <p class="card-text">{{Hero.bio.substring(0,30)}}</p>
-          <small>{{Hero.aparicion}}</small>  
-      </div>
-        <button (click)= "Navegar(i)" class="btn btn-outline-primary btn-block">Ver más...</button>
-      </div>
-  </div>
+  <h2 class="h2 display-4 pb-4">Heroes <small> DC y Marvel</small></h2>
+  <!-- *ngFor= "let Hero of ArrayHeros; let i = index" -->
+  <!-- HeroCard es hijo de heroscomponent -->
+<div class="card-columns">
+  <app-hero-card
+    [PadreHero]="Hero" [Index]='i'
+    *ngFor="let Hero of ArrayHeros; let i = index"
+  ></app-hero-card> 
 </div>
   
-  
-  
-      <!-- <div class="card p-3">
+</div>
+
+<!-- <div class="card p-3">
         <blockquote class="blockquote mb-0 card-body">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
           <footer class="blockquote-footer">
